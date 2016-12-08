@@ -8,7 +8,7 @@ def detectAlien():
     test_url=""
     highestNumber=0
 
-    imgUrls=urllib.request.urlopen("http://media.nu.nl/m/m1mxoscahumw_wd640.jpg/olivia-wilde-nieuw-gezicht-van-hm-concious-exclusive.jpg").read()
+    imgUrls=urllib.request.urlopen("https://hackthefuture-api.eu-gb.mybluemix.net/api/Images/all").read()
     imgUrls=str(imgUrls)
     imgUrls=imgUrls.split(',')
     imgUrls[0]=(imgUrls[0][13:])
@@ -20,7 +20,7 @@ def detectAlien():
             test_url=url[1:-1]
 
 
-    test_url = 'http://cdn.images.express.co.uk/img/dynamic/80/590x/secondary/alien-277968.jpg'
+    test_url = 'http://www.hdwallpapers.in/walls/alien-HD.jpg'
     print(test_url)
     visual_recognition = VisualRecognitionV3('2016-05-20', api_key='243ed19843348fcdb81d320897e742f027887ab3')
     data=json.dumps(visual_recognition.classify(images_url=test_url,  threshold=0.6,
@@ -36,4 +36,6 @@ def detectAlien():
     else:
         print("not detected")
         exit(0)
+
 detectAlien()
+
