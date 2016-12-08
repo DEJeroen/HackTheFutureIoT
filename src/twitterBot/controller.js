@@ -15,7 +15,7 @@ app.controller('TwitterController', function($scope, $q, twitterService) {
 
     $scope.bla = function(maxId){
         console.log(maxId);
-                        twitterService.postTweet(maxId).then(function(data) {
+                        twitterService.executePython(maxId).then(function(data) {
             $scope.tweets = $scope.tweets.concat(data);
         }, function() {
             $scope.rateLimitError = true;

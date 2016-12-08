@@ -57,23 +57,40 @@ angular.module('twitterApp.services', []).factory('twitterService', function($q)
             return deferred.promise;
         },
 
-        postTweet: function(maxId){
+    executePython: function(maxId)
+    {        var a = $.ajax({
+        type: "POST",
+        url: "../visualRecognition/recoG.py",
+        datatype: "text"
+    });
+    postTweet(maxId, a);
+    }
+    
+}
 
-            var deferred = $q.defer();
+        function postTweet(maxId, response){
+console.log(response.responseText);
+if (response.readyState == 1) {
+    console.log(response);
+            /*var deferred = $q.defer();
             //var url = '1.1/statuses/update.json?status=Maybe%20he%27ll%20finally%20find%20his%20keys.%20%23peterfalkadf';
-            var url = '1.1/statuses/update.json?status=@craftworkz_co%20%23HumansOfInternet%20%23htf2016%20ALIEN%20DETECTED%20EVERYONE%20LOSE%20YOUR%20MINDS!'
-            console.log(maxId, url);
+            var tweet = '1.1/statuses/update.json?status=@craftworkz_co%20%23HumansOfInternet%20%23htf2016%20ALIEN%20DETECTED%20EVERYONE%20LOSE%20YOUR%20MINDS11!'
             if (maxId) {
-                url += '?max_id=' + maxId;
+                tweet += '?max_id=' + maxId;
             }
-            var promise = authorizationResult.post(url).done(function(data) {
+            var promise = authorizationResult.post(tweet).done(function(data) {
                 // https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
                 // when the data is retrieved resolve the deferred object
                 deferred.resolve(data);
             }).fail(function(err) {
                 deferred.reject(err);
-            });
-
+            });*/
         }
+    if(response.readyState == 0)
+    {
+        console.log("geen alien");
+    }
+    
+
     }
 });
