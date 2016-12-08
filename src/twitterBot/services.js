@@ -1,4 +1,4 @@
-angular.module('twitterApp.services', []).factory('twitterService', function($q) {
+angular.module('twitterApp.services', []).factory('twitterService', function($q, $http) {
 
     var authorizationResult = false;
 
@@ -58,23 +58,37 @@ angular.module('twitterApp.services', []).factory('twitterService', function($q)
         },
 
     executePython: function(maxId)
-    {        var a = $.ajax({
-        type: "POST",
-        url: "../visualRecognition/recoG.py",
-        datatype: "text"
-    });
-    postTweet(maxId, a);
+    {        $http.get("http://localhost:3000/bla")
+            .success(function(UserData){    
+                
+             console.log(UserData.images[0].classifiers[0].classes[0].class);
+            
+                if(UserData.images[0].classifiers[0].classes[0].class == "alien")
+                {
+                    postTweet(maxId);
+                }
+
+                else{
+                    alert("no alien");
+                }
+             
+            })
+            .error(function(UserData){
+                console.error("error in retrieving");
+                console.log(UserData)
+            });
+    
+        
+        
     }
     
 }
 
-        function postTweet(maxId, response){
-console.log(response.responseText);
-if (response.readyState == 1) {
-    console.log(response);
-            /*var deferred = $q.defer();
+        function postTweet(maxId){
+
+            var deferred = $q.defer();
             //var url = '1.1/statuses/update.json?status=Maybe%20he%27ll%20finally%20find%20his%20keys.%20%23peterfalkadf';
-            var tweet = '1.1/statuses/update.json?status=@craftworkz_co%20%23HumansOfInternet%20%23htf2016%20ALIEN%20DETECTED%20EVERYONE%20LOSE%20YOUR%20MINDS11!'
+            var tweet = '1.1/statuses/update.json?status=@craftworkz_co%20%23HumansOfInternet%20%23htf2016%20ALIEN%20DETECTED%20EVERYONE%20LOSE%20YOUR%20MINDSFORREALsddsfgsfsdgdfsgf!'
             if (maxId) {
                 tweet += '?max_id=' + maxId;
             }
@@ -84,13 +98,7 @@ if (response.readyState == 1) {
                 deferred.resolve(data);
             }).fail(function(err) {
                 deferred.reject(err);
-            });*/
-        }
-    if(response.readyState == 0)
-    {
-        console.log("geen alien");
-    }
-    
-
+            });
+        
     }
 });

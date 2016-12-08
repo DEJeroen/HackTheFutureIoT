@@ -21,20 +21,30 @@ app.get("/", function(req,res){
 	res.sendFile( __dirname + "/" + "index.html");
 });
 
-/*var visual_recognition = new VisualRecognitionV3({
+var visual_recognition = new VisualRecognitionV3({
   api_key: "243ed19843348fcdb81d320897e742f027887ab3",
   version_date: '2016-05-19'
 });
-
+var data;
 var params = {
-  images_file: fs.createReadStream('./resources/car.png')
+  images_file: fs.createReadStream('alien1.jpg'),
+  classifier_ids:'alien_630240897',
+  threshold: '0.6'
 };
+
 
 visual_recognition.classify(params, function(err, res) {
   if (err)
     console.log(err);
   else
-    console.log(JSON.stringify(res, null, 2));
-});*/
+    data=JSON.stringify(res, null, 2);
+console.log(data);
+
+
+});
+
+app.get("/bla",function(req,res, body){
+res.send(data);
+});
 
 app.listen(3000);
