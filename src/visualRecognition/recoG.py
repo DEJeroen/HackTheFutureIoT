@@ -13,11 +13,6 @@ def detectAlien():
     imgUrls=imgUrls.split(',')
     imgUrls[0]=(imgUrls[0][13:])
     imgUrls[4]=imgUrls[len(imgUrls)-1][0:-3]
-    print (imgUrls[0])
-    print (imgUrls[1])
-    print (imgUrls[2])
-    print (imgUrls[3])
-    print (imgUrls[4])
     for url in imgUrls:
         currentNumber=url.rsplit('/')[5].split('.')[0]
         if int(highestNumber) < int(currentNumber):
@@ -36,7 +31,11 @@ def detectAlien():
     classifiers=datapoints['classifiers']
     detected=classifiers.pop()['name']
     if detected == "alien":
+        print("detected")
         exit(1)
     else:
+        print("not detected")
         exit(0)
+
+detectAlien()
 
